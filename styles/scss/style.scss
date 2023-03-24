@@ -1,3 +1,7 @@
+$color_white: #fbfbfb;
+$color_promo1: #e2a41e;
+$color_promo2: #e25c1e;
+
 * {
     padding: 0;
     margin: 0;
@@ -22,7 +26,7 @@ header {
     }
 
     img {
-        width: 40%;
+        width: 70px;
     }
 }
 
@@ -66,6 +70,26 @@ header {
     }
 }
 
+.navbar>.container-fluid {
+    display: flex;
+    flex-wrap: inherit;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.navbar-toggler {
+    color: rgb(27 28 28 / 65%);
+    ;
+}
+
+.bg-dark1 {
+    --bs-bg-opacity: 0;
+}
+
+.navbar-nav {
+    text-align: right;
+}
+
 .navbar-toggler-icon {
     background-color: #7c7c7c91;
     border-radius: 5px;
@@ -95,7 +119,7 @@ section h2 {
     justify-content: space-evenly;
     background-color: rgb(255, 255, 255);
     text-align: center;
-    box-shadow: 2px 2px 15px rgb(172, 172, 172);
+    box-shadow: 2px 2px 15px rgb(206, 206, 206);
     border-radius: 20px;
     height: 300px;
     width: 300px;
@@ -103,76 +127,84 @@ section h2 {
 }
 
 /* TODO PAGINA SERVICIOS **/
-
 .servi {
-    max-width: 90%;
-    padding: 1rem;
-    margin: 0 auto;
+    margin: 20px;
+}
+
+.auto-grid {
     display: grid;
-    justify-content: center;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 200px 200px 200px 200px;
-    grid-gap: 0.1rem;
+    grid-template-columns: repeat(auto-fill,
+            minmax(var(--auto-grid-min-size, 14rem), 1fr));
+    padding: 0;
+}
 
-    p {
-        text-align: center;
-        font: 1.2em sans-serif;
+.services {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    aspect-ratio: 1/1;
+    position: relative;
+    padding: 1.5rem;
+    color: #ffffff;
+    text-decoration: none;
+    overflow: hidden;
+
+    &::before {
+        background: linear-gradient(to top,
+                hsl(0 0% 0% / 0.79) 0%,
+                hsl(0 0% 0% / 0.787) 7.8%,
+                hsl(0 0% 0% / 0.779) 14.4%,
+                hsl(0 0% 0% / 0.765) 20.2%,
+                hsl(0 0% 0% / 0.744) 25.3%,
+                hsl(0 0% 0% / 0.717) 29.9%,
+                hsl(0 0% 0% / 0.683) 34.3%,
+                hsl(0 0% 0% / 0.641) 38.7%,
+                hsl(0 0% 0% / 0.592) 43.3%,
+                hsl(0 0% 0% / 0.534) 48.4%,
+                hsl(0 0% 0% / 0.468) 54.1%,
+                hsl(0 0% 0% / 0.393) 60.6%,
+                hsl(0 0% 0% / 0.31) 68.3%,
+                hsl(0 0% 0% / 0.216) 77.3%,
+                hsl(0 0% 0% / 0.113) 87.7%,
+                hsl(0 0% 0% / 0) 100%);
+        transition: 300ms opacity linear;
+    }
+
+    img {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin: 0;
+        z-index: -1;
+        object-fit: cover;
+        filter: grayscale(1);
+        transition: filter 200ms ease, transform 250ms linear;
+    }
+
+    h2 {
+        font-size: 1.7rem;
+        line-height: 1.2;
+        font-weight: 900;
+        transition: 300ms transform ease;
+        transform: translateY(2ex);
     }
 }
 
-img {
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-    padding: 5px;
+.services:hover :is(h2),
+.services:focus :is(h2) {
+    transform: none;
 }
 
-.item-a {
-    grid-row: 1 / 3;
-
-    &:hover {
-        box-shadow: 2px 2px 7px rgb(243, 235, 148);
-    }
+.services:hover img,
+.services:focus img {
+    filter: grayscale(0);
+    transform: scale(1.05) rotate(1deg);
 }
 
-.item-b {
-    grid-column: 3 / 5;
-    background-color: rgb(71, 184, 184);
-
-    h4 {
-        text-align: center;
-        padding: 40px 60px;
-        color: #fbfbfb;
-    }
-}
-
-.item-c {
-    grid-row: 2 / 4;
-
-    &:hover {
-        box-shadow: 2px 2px 7px rgb(243, 235, 148);
-    }
-}
-
-.item-d {
-    grid-column: 3 / 5;
-
-    &:hover {
-        box-shadow: 2px 2px 7px rgb(175, 213, 228);
-    }
-}
-
-.item-e {
-    grid-column: 1 / 3;
-
-    &:hover {
-        box-shadow: 2px 2px 7px rgb(187, 220, 235);
-    }
-}
-
-.item-f {
-    grid-column: 3 / 5;
+article ul {
+    list-style: none;
 }
 
 /*TODO PAGINA PROMOCIONES **/
@@ -197,7 +229,7 @@ img {
     align-items: center;
 
     i {
-        color: #fbfbfb;
+        color: $color_white;
     }
 
     ul {
@@ -225,7 +257,7 @@ img {
 
             a {
                 text-decoration: none;
-                color: #fff;
+                color: $color_white;
             }
         }
     }
@@ -236,7 +268,7 @@ h4 {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #fbfbfb;
+    color: $color_white;
 }
 
 h6 {
@@ -244,27 +276,27 @@ h6 {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #fbfbfb;
+    color: $color_white;
 }
 
 .promos15 {
     grid-area: promos15;
-    background-color: #e2a41e;
+    background-color: $color_promo1;
 }
 
 .promos20 {
     grid-area: promos20;
-    background-color: #e25c1e;
+    background-color: $color_promo2;
 }
 
 .promos25 {
     grid-area: promos25;
-    background-color: #e2a41e;
+    background-color: $color_promo1;
 }
 
 .promos50 {
     grid-area: promos50;
-    background-color: #e25c1e;
+    background-color: $color_promo2;
 }
 
 .textpromos15 {
@@ -274,7 +306,7 @@ h6 {
     height: 360px;
     display: flex;
     align-items: center;
-    background-color: #e2a41e;
+    background-color: $color_promo1;
 }
 
 .textpromos20 {
@@ -284,7 +316,7 @@ h6 {
     height: 360px;
     display: flex;
     align-items: center;
-    background-color: #e25c1e;
+    background-color: $color_promo2;
 }
 
 .textpromos25 {
@@ -294,7 +326,7 @@ h6 {
     height: 360px;
     display: flex;
     align-items: center;
-    background-color: #e2a41e;
+    background-color: $color_promo1;
 }
 
 .textpromos50 {
@@ -304,11 +336,11 @@ h6 {
     height: 360px;
     display: flex;
     align-items: center;
-    background-color: #e25c1e;
+    background-color: $color_promo2;
 }
 
 aside p {
-    color: #fbfbfb;
+    color: $color_white;
 }
 
 section img {
@@ -383,38 +415,106 @@ section img {
 
 /*TODO PAGINA QUINES SOMOS **/
 
-/* BannerS*/
-.misionvision {
-    margin-top: 50px;
-    display: flex;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
+.sobrenosotros {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: 1fr 2fr;
+    grid-auto-rows: minmax(100px, auto);
+    margin: 24px;
+    max-width: 1000px;
+    position: relative;
+
+    img {
+        height: auto;
+        width: 100%;
+    }
 }
 
-.bannerMisionVision {
+.sobrenosotros>* {
+    grid-column: 1 / span 2;
+}
+
+.header {
+    background-color: #cac9c9;
     display: flex;
+    justify-content: space-around;
     align-items: center;
-    flex-direction: column;
-    justify-content: space-evenly;
-    background-color: rgb(255, 255, 255);
-    text-align: center;
-    height: 125vh;
-    margin: 20px;
 }
 
-.bannerMisionVision p {
-    max-width: 400px;
+.articulo {
+    text-align: right;
 }
 
-.bannerMisionVision iframe {
-    padding: 20px;
-    width: 100%;
-    height: 300px;
+.imagen-1 {
+    grid-row: 2 / 3;
 }
 
-.bannerMisionVision img {
-    width: 350px;
-    margin: 20px 0;
+.articulo-1,
+.articulo-4 {
+    grid-column: 2 / 3;
+}
+
+.imagen-2,
+.number-2 {
+    align-self: end;
+}
+
+.imagen-3 img {
+    height: 100%;
+}
+
+@media (min-width: 768px) {
+
+    .sobrenosotros {
+        grid-template-columns: repeat(2, 1fr 2fr);
+        margin: 24px auto;
+    }
+
+    .header {
+        grid-column: 3 / 5;
+        width: 70%;
+        background-color: #cac9c9;
+    }
+
+    .imagen-1 {
+        grid-row: 1 / 3;
+    }
+
+    .articulo-1 {
+        grid-row: 3 / 4;
+    }
+
+    .articulo-2 {
+        grid-column: 4 / 5;
+        grid-row: 4 / 5;
+    }
+
+    .imagen-2,
+    .number-2 {
+        grid-column: 3 / 5;
+        grid-row: 2 / 4;
+    }
+
+    .imagen-3,
+    .number-3 {
+        grid-row: 4 / 6;
+    }
+
+    .imagen-4,
+    .number-4 {
+        grid-column: 3 / 5;
+        grid-row: 5 / 6;
+    }
+
+    .articulo-3,
+    .articulo-4 {
+        grid-row: 6 / 7;
+    }
+
+    .articulo-4 {
+        grid-column: 4 / 5;
+    }
+
 }
 
 /*TODO PAGINA DE CONTACTANOS**/
@@ -425,25 +525,51 @@ section img {
     border-radius: 10px;
     padding-top: 69px;
     padding-bottom: 20px;
-    background-color: #fbfbfb;
+    background-color: $color_white;
     padding-left: 30px;
 }
 
-.formulario input {
-    background-color: #fbfbfb;
-    width: 408px;
-    height: 40px;
-    border-radius: 5px;
-    border-style: solid;
-    border-width: 1px;
-    border-color: #e2a41e;
-    margin-top: 10px;
-    padding-left: 10px;
-    margin-bottom: 20px;
+.formulario {
+    input {
+
+        background-color: $color_white;
+        width: 408px;
+        height: 40px;
+        border-radius: 5px;
+        border-style: solid;
+        border-width: 1px;
+        border-color: #e2a41e;
+        margin-top: 10px;
+        padding-left: 10px;
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        float: center;
+    }
+
+    button {
+        height: 45px;
+        padding-left: 5px;
+        padding-right: 5px;
+        margin-bottom: 20px;
+        margin-top: 10px;
+        text-transform: uppercase;
+        background-color: #615e60;
+        border-color: #e2a41e5b;
+        border-style: solid;
+        border-radius: 10px;
+        width: 420px;
+
+        p {
+            color: $color_white;
+        }
+    }
 }
 
 textarea {
-    background-color: #fbfbfb;
+    background-color: $color_white;
     width: 405px;
     height: 150px;
     border-radius: 5px;
@@ -454,29 +580,6 @@ textarea {
     padding-left: 10px;
     margin-bottom: 20px;
     padding-top: 15px;
-}
-
-.formulario label {
-    display: block;
-    float: center;
-}
-
-.formulario button {
-    height: 45px;
-    padding-left: 5px;
-    padding-right: 5px;
-    margin-bottom: 20px;
-    margin-top: 10px;
-    text-transform: uppercase;
-    background-color: #615e60;
-    border-color: #e2a41e5b;
-    border-style: solid;
-    border-radius: 10px;
-    width: 420px;
-}
-
-.formulario button p {
-    color: #fff;
 }
 
 @media screen and (max-width: 768px) {
@@ -498,7 +601,7 @@ textarea {
     #banner button {
         text-decoration: none;
         background-color: rgb(61, 61, 61);
-        color: white;
+        color: $color_white;
         padding: 4px 7px;
         border-radius: 10px;
     }

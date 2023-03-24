@@ -21,7 +21,7 @@ header li {
   padding: 0 10px;
 }
 header img {
-  width: 40%;
+  width: 70px;
 }
 
 /* TODO Secciones Main*/
@@ -59,6 +59,25 @@ header img {
   max-width: 70%;
 }
 
+.navbar > .container-fluid {
+  display: flex;
+  flex-wrap: inherit;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.navbar-toggler {
+  color: rgba(27, 28, 28, 0.65);
+}
+
+.bg-dark1 {
+  --bs-bg-opacity: 0;
+}
+
+.navbar-nav {
+  text-align: right;
+}
+
 .navbar-toggler-icon {
   background-color: rgba(124, 124, 124, 0.568627451);
   border-radius: 5px;
@@ -88,7 +107,7 @@ section h2 {
   justify-content: space-evenly;
   background-color: rgb(255, 255, 255);
   text-align: center;
-  box-shadow: 2px 2px 15px rgb(172, 172, 172);
+  box-shadow: 2px 2px 15px rgb(206, 206, 206);
   border-radius: 20px;
   height: 300px;
   width: 300px;
@@ -97,68 +116,63 @@ section h2 {
 
 /* TODO PAGINA SERVICIOS **/
 .servi {
-  max-width: 90%;
-  padding: 1rem;
-  margin: 0 auto;
-  display: grid;
-  justify-content: center;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 200px 200px 200px 200px;
-  grid-gap: 0.1rem;
-}
-.servi p {
-  text-align: center;
-  font: 1.2em sans-serif;
+  margin: 20px;
 }
 
-img {
-  object-fit: cover;
+.auto-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--auto-grid-min-size, 14rem), 1fr));
+  padding: 0;
+}
+
+.services {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  aspect-ratio: 1/1;
+  position: relative;
+  padding: 1.5rem;
+  color: #ffffff;
+  text-decoration: none;
+  overflow: hidden;
+}
+.services::before {
+  background: linear-gradient(to top, hsla(0, 0%, 0%, 0.79) 0%, hsla(0, 0%, 0%, 0.787) 7.8%, hsla(0, 0%, 0%, 0.779) 14.4%, hsla(0, 0%, 0%, 0.765) 20.2%, hsla(0, 0%, 0%, 0.744) 25.3%, hsla(0, 0%, 0%, 0.717) 29.9%, hsla(0, 0%, 0%, 0.683) 34.3%, hsla(0, 0%, 0%, 0.641) 38.7%, hsla(0, 0%, 0%, 0.592) 43.3%, hsla(0, 0%, 0%, 0.534) 48.4%, hsla(0, 0%, 0%, 0.468) 54.1%, hsla(0, 0%, 0%, 0.393) 60.6%, hsla(0, 0%, 0%, 0.31) 68.3%, hsla(0, 0%, 0%, 0.216) 77.3%, hsla(0, 0%, 0%, 0.113) 87.7%, hsla(0, 0%, 0%, 0) 100%);
+  transition: 300ms opacity linear;
+}
+.services img {
   width: 100%;
   height: 100%;
-  border-radius: 10px;
-  padding: 5px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+  z-index: -1;
+  object-fit: cover;
+  filter: grayscale(1);
+  transition: filter 200ms ease, transform 250ms linear;
+}
+.services h2 {
+  font-size: 1.7rem;
+  line-height: 1.2;
+  font-weight: 900;
+  transition: 300ms transform ease;
+  transform: translateY(2ex);
 }
 
-.item-a {
-  grid-row: 1/3;
-}
-.item-a:hover {
-  box-shadow: 2px 2px 7px rgb(243, 235, 148);
+.services:hover :is(h2),
+.services:focus :is(h2) {
+  transform: none;
 }
 
-.item-b {
-  grid-column: 3/5;
-  background-color: rgb(71, 184, 184);
-}
-.item-b h4 {
-  text-align: center;
-  padding: 40px 60px;
-  color: #fbfbfb;
+.services:hover img,
+.services:focus img {
+  filter: grayscale(0);
+  transform: scale(1.05) rotate(1deg);
 }
 
-.item-c {
-  grid-row: 2/4;
-}
-.item-c:hover {
-  box-shadow: 2px 2px 7px rgb(243, 235, 148);
-}
-
-.item-d {
-  grid-column: 3/5;
-}
-.item-d:hover {
-  box-shadow: 2px 2px 7px rgb(175, 213, 228);
-}
-
-.item-e {
-  grid-column: 1/3;
-}
-.item-e:hover {
-  box-shadow: 2px 2px 7px rgb(187, 220, 235);
-}
-
-.item-f {
-  grid-column: 3/5;
+article ul {
+  list-style: none;
 }
 
 /*TODO PAGINA PROMOCIONES **/
@@ -205,7 +219,7 @@ img {
 }
 .bannerPromo ul li a {
   text-decoration: none;
-  color: #fff;
+  color: #fbfbfb;
 }
 
 h4 {
@@ -342,40 +356,95 @@ section img {
   }
 }
 /*TODO PAGINA QUINES SOMOS **/
-/* BannerS*/
-.misionvision {
-  margin-top: 50px;
-  display: flex;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
+.sobrenosotros {
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: 1fr 2fr;
+  grid-auto-rows: minmax(100px, auto);
+  margin: 24px;
+  max-width: 1000px;
+  position: relative;
 }
-
-.bannerMisionVision {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: space-evenly;
-  background-color: rgb(255, 255, 255);
-  text-align: center;
-  height: 125vh;
-  margin: 20px;
-}
-
-.bannerMisionVision p {
-  max-width: 400px;
-}
-
-.bannerMisionVision iframe {
-  padding: 20px;
+.sobrenosotros img {
+  height: auto;
   width: 100%;
-  height: 300px;
 }
 
-.bannerMisionVision img {
-  width: 350px;
-  margin: 20px 0;
+.sobrenosotros > * {
+  grid-column: 1/span 2;
 }
 
+.header {
+  background-color: #cac9c9;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.articulo {
+  text-align: right;
+}
+
+.imagen-1 {
+  grid-row: 2/3;
+}
+
+.articulo-1,
+.articulo-4 {
+  grid-column: 2/3;
+}
+
+.imagen-2,
+.number-2 {
+  align-self: end;
+}
+
+.imagen-3 img {
+  height: 100%;
+}
+
+@media (min-width: 768px) {
+  .sobrenosotros {
+    grid-template-columns: repeat(2, 1fr 2fr);
+    margin: 24px auto;
+  }
+  .header {
+    grid-column: 3/5;
+    width: 70%;
+    background-color: #cac9c9;
+  }
+  .imagen-1 {
+    grid-row: 1/3;
+  }
+  .articulo-1 {
+    grid-row: 3/4;
+  }
+  .articulo-2 {
+    grid-column: 4/5;
+    grid-row: 4/5;
+  }
+  .imagen-2,
+  .number-2 {
+    grid-column: 3/5;
+    grid-row: 2/4;
+  }
+  .imagen-3,
+  .number-3 {
+    grid-row: 4/6;
+  }
+  .imagen-4,
+  .number-4 {
+    grid-column: 3/5;
+    grid-row: 5/6;
+  }
+  .articulo-3,
+  .articulo-4 {
+    grid-row: 6/7;
+  }
+  .articulo-4 {
+    grid-column: 4/5;
+  }
+}
 /*TODO PAGINA DE CONTACTANOS**/
 .contact_form {
   width: 460px;
@@ -400,26 +469,10 @@ section img {
   padding-left: 10px;
   margin-bottom: 20px;
 }
-
-textarea {
-  background-color: #fbfbfb;
-  width: 405px;
-  height: 150px;
-  border-radius: 5px;
-  border-style: solid;
-  border-width: 1px;
-  border-color: #e2a41e;
-  margin-top: 10px;
-  padding-left: 10px;
-  margin-bottom: 20px;
-  padding-top: 15px;
-}
-
 .formulario label {
   display: block;
   float: center;
 }
-
 .formulario button {
   height: 45px;
   padding-left: 5px;
@@ -433,9 +486,22 @@ textarea {
   border-radius: 10px;
   width: 420px;
 }
-
 .formulario button p {
-  color: #fff;
+  color: #fbfbfb;
+}
+
+textarea {
+  background-color: #fbfbfb;
+  width: 405px;
+  height: 150px;
+  border-radius: 5px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #e2a41e;
+  margin-top: 10px;
+  padding-left: 10px;
+  margin-bottom: 20px;
+  padding-top: 15px;
 }
 
 @media screen and (max-width: 768px) {
@@ -454,7 +520,7 @@ textarea {
   #banner button {
     text-decoration: none;
     background-color: rgb(61, 61, 61);
-    color: white;
+    color: #fbfbfb;
     padding: 4px 7px;
     border-radius: 10px;
   }
