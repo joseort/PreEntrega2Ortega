@@ -1,37 +1,6 @@
-$color_white: #fbfbfb;
-$color_promo1: #e2a41e;
-$color_promo2: #e25c1e;
-$color_black: rgba(19, 19, 19, 0.918);
-$color_gradient: linear-gradient(#ff9a58, #ff2f56);
-
-* {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Raleway', sans-serif;
-    font-family: 'Lato', sans-serif;
-}
-
-/*TODO Header */
-header {
-    background-color: $color_black;
-    top: 0;
-    box-shadow: 2px 2px 15px rgba(82, 81, 81, 0.877);
-    display: flex;
-    justify-content: space-between;
-
-    li {
-        padding: 0 10px;
-    }
-
-    img {
-        width: 70px;
-    }
-}
-
+@import "./base/reset.scss";
+@import "./abstracts/variables";
+@import "./components/nav";
 /* TODO Secciones Main*/
 /* Banner */
 
