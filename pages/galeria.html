@@ -12,9 +12,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
         integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../styles/css/style.css">
-    <title> Promociones - Home Tools</title>
+    <title> Galerias - Home Tools</title>
 </head>
 
 <body>
@@ -42,51 +42,93 @@
     </header>
 
     <main>
-        <!---Banner--->
-        <div class="container">
-
-            <h2 class="heading">Galleria de productos <span>& Servicios</span></h2>
-        
-            <div class="gallery">
-                <div class="gallery-item">
-                    <img class="gallery-image" src="https://www.arlex.es/system/files/styles/large/private/interiores/2021-05/INDEX.jpg?itok=CbBWN2Xh" alt="mueble blanco para libros">
-                </div>
-        
-                <div class="gallery-item">
-                    <img class="gallery-image" src="https://www.arketipo.com/download/multimedia/generic/9413f3c4-d4d0-4ca5-9faf-817012c4afd9.jpg" alt="cama con decoracion oliva">
-                </div>
-        
-                <div class="gallery-item">
-                    <img class="gallery-image" src="https://www.arketipo.com/wp-content/uploads/2023/03/15417-milano2018-1024x1024.jpg" alt="mueble de sala arketipo">
-                </div>
-        
-                <div class="gallery-item">
-                    <img class="gallery-image" src="https://www.arketipo.com/download/multimedia/generic/c683a534-e224-4525-9890-a2bb885d5413.jpg" alt="Mesa desplegable para accesorios y libros">
-                </div>
-        
-                <div class="gallery-item">
-                    <img class="gallery-image" src="https://www.arlex.es/system/files/styles/large/private/interiores/2021-04/ambient_INDEX.jpg?itok=O9dtEm02" alt="mesa blanca para sala-cocicna">
-                </div>
-        
-                <div class="gallery-item">
-                    <img class="gallery-image" src="https://www.arketipo.com/download/multimedia/generic/d25225c6-8e10-4330-aa28-c817f0203546.jpg" alt="mesa redonda de vidrio">
-                </div>
-
-                <div class="gallery-item">
-                    <img class="gallery-image" src="https://www.arlex.es/system/files/styles/large/private/interiores/2021-04/ARLEX_INDEX.jpg?itok=_brZ0mEz" alt="closets de libros">
-                </div>
-        
-                <div class="gallery-item">
-                    <img class="gallery-image" src="https://www.arketipo.com/download/multimedia/generic/776d637c-4309-41b6-8f12-bbd7411170a1.jpg" alt="lampara tipo esfera">
-                </div>
-        
-                <div class="gallery-item">
-                    <img class="gallery-image" src="https://wp.andtradition.com/wp-content/uploads/2022/12/ATD_Retail_2023_Margac-LC1_Lato-LN8-LN9_Flowerpot-VP9_Collect-Cushion-SC28_Collect-Cushion-SC48_Formakami-JH18-800x600.jpg" alt="mueble blanco">
-                </div>
-        
+        <div class="container-slide">
+            <input id="rd-slide-1" type="radio" name="rd-slide" checked="checked">
+            <input id="rd-slide-2" type="radio" name="rd-slide">
+            <input id="rd-slide-3" type="radio" name="rd-slide">
+            <div class="slide">
+                <section>
+                    <h3>Diseño para interiores.</h3>
+                    <p>Encuentra nuestra variedad de diseños en interiores y para cada sitio de tu hogar.</p>
+                    <label for="rd-slide-2"><i class="fa fa-angle-right" aria-hidden="true"></i></label>
+                </section>
+                <section>
+                    <h3>Baños y cuartos.</h3>
+                    <p>La mejor calidad al solo verla pero tambien puedes comprobarlo por ti mismo y tenemos garantias para cada una de ellas.</p>
+                    <label for="rd-slide-1" class="voltar"><i class="fa fa-angle-left" aria-hidden="true"></i></label>
+                    <label for="rd-slide-3"><i class="fa fa-angle-right" aria-hidden="true"></i></label>
+                </section>
+                <section>
+                    <h3>Pisos y pinturas.</h3>
+                    <p>Navega sobre la varidad de tonos para pisos y pintutas, dañe vida a cada espacio de tu hogar tanto por dentro como por fuera.</p>
+                    <label for="rd-slide-2" class="voltar"><i class="fa fa-angle-left" aria-hidden="true"></i></label>
+                    <label for="rd-slide-1"><i class="fa fa-angle-right" aria-hidden="true"></i></label>
+                </section>
             </div>
-        
         </div>
+
+        <section class="gallery">
+            <div class="gallery-item gallery-item-1 wide">
+                <figure>
+                    <img src="https://source.unsplash.com/XQFAzjjjmbE" class="gallery-img" alt="foto de sala conmuebles">
+                </figure>
+                <p>Diseño Hometools</p>
+            </div>
+            <div class="gallery-item gallery-item-2">
+                <figure>
+                    <img src="https://source.unsplash.com/qcBayvKvghM/900x1600" class="gallery-img" alt="persona en contruccion">
+                </figure>
+                <p>Diseño Hometools</p>
+            </div>
+            <div class="gallery-item gallery-item-3 tall">
+                <figure>
+                    <img src="https://source.unsplash.com/h2_3dL9yLpU" class="gallery-img" alt="foto accesorios para sala">
+                </figure>
+                <p>Diseño Hometools</p>
+            </div>
+            <div class="gallery-item gallery-item-4">
+                <figure>
+                    <img src="https://source.unsplash.com/3CGqUor_slo" class="gallery-img" alt="Accesorios para matas y suculentas">
+                </figure>
+                <p>Diseño Hometools</p>
+            </div>
+            <div class="gallery-item gallery-item-5">
+                <figure>
+                    <img src="https://source.unsplash.com/xI5JeM-Lk7I" class="gallery-img" alt="diseño de jardines">
+                </figure>
+                <p>Diseño Hometools</p>
+            </div>
+            <div class="gallery-item gallery-item-6 wide">
+                <figure>
+                    <img src="https://source.unsplash.com/Eh_It1hg4Hs" class="gallery-img" alt="Image 6">
+                </figure>
+                <p>Diseño Hometools</p>
+            </div>
+            <div class="gallery-item gallery-item-7">
+                <figure>
+                    <img src="https://source.unsplash.com/ZbPdrqae8eA" class="gallery-img" alt="sillas y mesa para jardin y sala exterior">
+                </figure>
+                <p>Diseño Hometools</p>
+            </div>
+            <div class="gallery-item gallery-item-8 tall">
+                <figure>
+                    <img src="https://source.unsplash.com/zAuG4Jgpcoo" class="gallery-img" alt="articulos para la cama">
+                </figure>
+                <p>Diseño Hometools</p>
+            </div>
+            <div class="gallery-item gallery-item-9">
+                <figure>
+                    <img src="https://source.unsplash.com/F9dtgtDNcwM" class="gallery-img" alt="adorno para colocar accesorios en pared">
+                </figure>
+                <p>Diseño Hometools</p>
+            </div>
+            <div class="gallery-item gallery-item-10 wide">
+                <figure>
+                    <img src="https://source.unsplash.com/paY5Ow4GZis" class="gallery-img" alt="accesorios de decoracion para el baño">
+                </figure>
+                <p>Diseño Hometools</p>
+            </div>
+        </section>
     </main>
 
     <!---Footer--->
