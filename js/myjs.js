@@ -7,8 +7,8 @@ function buscar() {
         { cedula: 456, nombre: "maria", credito: 20000, estado: "proceso" },
         { cedula: 456, nombre: "jose", credito: 80000, estado: "inactivo" },
     ];
-    let solicitar = prompt("Desea un credito nuevo [Si/No]");
-    if (solicitar === "Si") {
+    let solicitar = prompt("Desea un credito nuevo [Si/No]").toLowerCase();
+    if (solicitar === "si") {
         //Funcion para ingresar cantidad a prestar
         function cantidad1() {
             let cantidad1 = parseInt(prompt("ingresar cantidad a prestar"));
@@ -62,7 +62,7 @@ function buscar() {
     Pago total: ${totalSuma1}`
         ];
         alert(resumen)
-    } else if (solicitar === "No") {
+    } else if (solicitar === "no") {
         let cedulaCliente = parseInt(prompt("Si deseas consultar tu credito digita tu nro de cedula, "));
         const encontrado = clientes.find(item => item.cedula === cedulaCliente);
         if (encontrado) {
