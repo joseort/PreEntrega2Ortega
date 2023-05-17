@@ -1,48 +1,82 @@
+const intereses = { mesesSeis: 0.09, mesesDoce: 0.07 };
+let iva = 0;
 
-let nombreCliente = prompt("Ingrese su nombre completo");
-let plazoMensual = parseInt(prompt("Ingrese el plazo de meses a pagar"));
-let montoSolicitado = parseInt(prompt("Ingrese el monto a solicitar"));
-const intereses = {mesesSeis: 0.05, mesesDoce: 0.03, mesesmayorDoce: 0.02};
+function buscar() {
+    const clientes = [
+        { cedula: 123, nombre: "juan", credito: 10000, estado: "activo" },
+        { cedula: 456, nombre: "maria", credito: 20000, estado: "proceso" },
+        { cedula: 456, nombre: "jose", credito: 80000, estado: "inactivo" },
+    ];
+    let solicitar = prompt("Desea un credito nuevo [Si/No]");
+    if (solicitar === "Si") {
+        //Funcion para ingresar cantidad a prestar
+        function cantidad1() {
+            let cantidad1 = parseInt(prompt("ingresar cantidad a prestar"));
+            alert("La cantidad es: " + cantidad1)
+            return cantidad1
+        }
 
-const montoIntereses6 = (a,b,c) => a * b * c;
-let resultado6 = montoIntereses6(intereses.mesesSeis, montoSolicitado, plazoMensual)
-const montoIntereses12 = (a,b,c) => a * b * c;
-let resultado12 = montoIntereses12(intereses.mesesDoce, montoSolicitado, plazoMensual)
-const montoInteresesMas12 = (a,b,c) => a * b * c;
-let resultadoMas12 = montoInteresesMas12(intereses.meses, montoSolicitado, plazoMensual)
+        //Funcion para ingresar cuotas a pagar
+        function cuotas1() {
+            let cuotas1 = parseInt(prompt("En cuantas cuotas quiere pagar?"));
+            if (cuotas1 <= 12) {
+                iva = intereses.mesesSeis;
+            } else if (cuotas1 > 12) {
+                iva = intereses.mesesDoce;
+            }
+            alert("Desea el prestamo en " + cuotas1 + " cuotas?")
+            return cuotas1
+        }
+        //Capturar resultado de funciones
+        let cantidad = cantidad1()
+        let cuotas = cuotas1()
 
-if (plazoMensual < 6) {
-    pagoTotal = montoSolicitado + resultado6;
-    alert("Su interes sera del 5%");
-    alert(`su pago Total por ${plazoMensual} meses sera de : ${pagoTotal}`);
-} else if (plazoMensual < 12) {
-    pagoTotal = montoSolicitado + resultado12;
-    alert("Su interes sera del 3%");
-    alert(`su pago Total por ${plazoMensual} meses sera de : ${pagoTotal}`);
-} else if (plazoMensual > 12) {
-    pagoTotal = montoSolicitado + resultadoMas12;
-    alert("Su interes sera del 2%");
-    alert(`su pago Total por ${plazoMensual} meses sera de : ${pagoTotal}`);
-}else {
-    alert('No seleccionaste ningún tipo de plazo')
+        //Funcion cantidad en cuotas
+        function interes(dato1, dato2, dato3) {
+            let resultadoInteres = dato1 * dato2 * dato3;
+            return resultadoInteres
+        }
+        //Capturar interes
+        let totalInteres = interes(cantidad, cuotas, iva)
+
+
+        function montoTotal(total1, total2) {
+            let resultadoTotal = total1 + total2;
+            return resultadoTotal
+        }
+        //Capturar total
+        let totalSuma1 = montoTotal(cantidad, totalInteres)
+
+        function divisionCuotas(total1, total2) {
+            let resultadoCuotas = total1 / total2;
+            return Math.round(resultadoCuotas);
+        }
+        //Capturar cuotas
+        let totalCuotas = divisionCuotas(totalSuma1, cuotas)
+
+        let resumen = [
+            `Gracias por la solicitus de su credito,
+    Estado: En Proceso..
+    Nro cuotas: ${cuotas} 
+    Valor cuotas mensuales: ${totalCuotas} 
+    Pago total: ${totalSuma1}`
+        ];
+        alert(resumen)
+    } else if (solicitar === "No") {
+        let cedulaCliente = parseInt(prompt("Si deseas consultar tu credito digita tu nro de cedula, "));
+        const encontrado = clientes.find(item => item.cedula === cedulaCliente);
+        if (encontrado) {
+            let mensaje = `
+                Cedula: ${encontrado.cedula}
+                Nombre: ${encontrado.nombre}
+                Credito: ${encontrado.credito}
+                Estado: ${encontrado.estado}
+                `;
+            alert(mensaje)
+            exit()
+        } else {
+            alert("No encontrado")
+        }
+    }
 }
-let peridoPagos = prompt("Ingrese el periodo de sus pagos(semanal / Quincenal / Mensual");
-switch (peridoPagos) {
-    case 'semanal':
-        totalSemanal = pagoTotal/4;
-        alert(`Sr(a):${nombreCliente} sus pagos semanales seran de: ${totalSemanal}`);
-        break
-    case 'quincenal':
-        totalQuincenal = pagoTotal/2;
-        alert(`Sr(a):${nombreCliente} sus pagos semanales seran de: ${totalQuincenal}`);
-        break
-    case 'mensual':
-        totalMensual = pagoTotal;
-        alert(`Sr(a):${nombreCliente} sus pagos semanales seran de: ${totalMensual}`);
-        break
-    default:
-        alert('No seleccionaste ningún periodo de pagos')
-        break
-}
-
-
+let buscarCliente = buscar()
