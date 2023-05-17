@@ -2,20 +2,25 @@
 let nombreCliente = prompt("Ingrese su nombre completo");
 let plazoMensual = parseInt(prompt("Ingrese el plazo de meses a pagar"));
 let montoSolicitado = parseInt(prompt("Ingrese el monto a solicitar"));
-let interesesMenor6 = 0.05 * montoSolicitado * plazoMensual;
-let interesesMenor12 = 0.03 * montoSolicitado * plazoMensual;
-let interesesMayor12 = 0.02 * montoSolicitado * plazoMensual;
+const intereses = {mesesSeis: 0.05, mesesDoce: 0.03, mesesmayorDoce: 0.02};
+
+const montoIntereses6 = (a,b,c) => a * b * c;
+let resultado6 = montoIntereses6(intereses.mesesSeis, montoSolicitado, plazoMensual)
+const montoIntereses12 = (a,b,c) => a * b * c;
+let resultado12 = montoIntereses12(intereses.mesesDoce, montoSolicitado, plazoMensual)
+const montoInteresesMas12 = (a,b,c) => a * b * c;
+let resultadoMas12 = montoInteresesMas12(intereses.meses, montoSolicitado, plazoMensual)
 
 if (plazoMensual < 6) {
-    pagoTotal = montoSolicitado + interesesMenor6;
+    pagoTotal = montoSolicitado + resultado6;
     alert("Su interes sera del 5%");
     alert(`su pago Total por ${plazoMensual} meses sera de : ${pagoTotal}`);
 } else if (plazoMensual < 12) {
-    pagoTotal = montoSolicitado + interesesMenor12;
+    pagoTotal = montoSolicitado + resultado12;
     alert("Su interes sera del 3%");
     alert(`su pago Total por ${plazoMensual} meses sera de : ${pagoTotal}`);
 } else if (plazoMensual > 12) {
-    pagoTotal = montoSolicitado + interesesMayor12;
+    pagoTotal = montoSolicitado + resultadoMas12;
     alert("Su interes sera del 2%");
     alert(`su pago Total por ${plazoMensual} meses sera de : ${pagoTotal}`);
 }else {
