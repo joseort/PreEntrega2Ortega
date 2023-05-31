@@ -1,82 +1,234 @@
-const intereses = { mesesSeis: 0.09, mesesDoce: 0.07 };
-let iva = 0;
+const IVA = 0.16
+let monto, plazo, totalPagos, tasaAnual, fechaInicio, fechaPago, tasaMensual, mensualidad, intereses, impuestos,
+    capital, insoluto, primerInteres, primerImpuesto, primerCapital, primerInsoluto, primerFechaPago, acumIntereses, acumImpuestos, acumCapital
 
-function buscar() {
-    const clientes = [
-        { cedula: 123, nombre: "juan", credito: 10000, estado: "activo" },
-        { cedula: 456, nombre: "maria", credito: 20000, estado: "proceso" },
-        { cedula: 456, nombre: "jose", credito: 80000, estado: "inactivo" },
-    ];
-    let solicitar = prompt("Desea un credito nuevo [Si/No]").toLowerCase();
-    if (solicitar === "si") {
-        //Funcion para ingresar cantidad a prestar
-        function cantidad1() {
-            let cantidad1 = parseInt(prompt("ingresar cantidad a prestar"));
-            alert("La cantidad es: " + cantidad1)
-            return cantidad1
-        }
+const dinero = new Intl.NumberFormat('es-CO', {
+    style: 'currency',
+    currency: 'COP'
+})
 
-        //Funcion para ingresar cuotas a pagar
-        function cuotas1() {
-            let cuotas1 = parseInt(prompt("En cuantas cuotas quiere pagar?"));
-            if (cuotas1 <= 12) {
-                iva = intereses.mesesSeis;
-            } else if (cuotas1 > 12) {
-                iva = intereses.mesesDoce;
-            }
-            alert("Desea el prestamo en " + cuotas1 + " cuotas?")
-            return cuotas1
-        }
-        //Capturar resultado de funciones
-        let cantidad = cantidad1()
-        let cuotas = cuotas1()
+var establecerDatos = function () {
+    primerInteres = 0, primerImpuesto = 0, primerCapital = 0, primerInsoluto = 0, primerFechaPago = true
+    acumIntereses = 0, acumImpuestos = 0, acumCapital = 0
 
-        //Funcion cantidad en cuotas
-        function interes(dato1, dato2, dato3) {
-            let resultadoInteres = dato1 * dato2 * dato3;
-            return resultadoInteres
-        }
-        //Capturar interes
-        let totalInteres = interes(cantidad, cuotas, iva)
+    monto = document.getElementById('monto').value
+    periodo = document.getElementById('periodo').value
+    plazo = document.getElementById('plazo').value
+    tasaAnual = document.getElementById('interes').value
+    fechaInicio = new Date(document.getElementById('fecha').value)
+    fechaInicio.setDate(fechaInicio.getDate() + 1) // fecha actual
 
+    let plazoMensual = document.getElementById('mensual').checked
+    let plazoAnual = document.getElementById('anual').checked
 
-        function montoTotal(total1, total2) {
-            let resultadoTotal = total1 + total2;
-            return resultadoTotal
-        }
-        //Capturar total
-        let totalSuma1 = montoTotal(cantidad, totalInteres)
+    if (plazoMensual === true) {
+        this.plazo = plazo
+    } else if (plazoAnual === true) {
+        this.plazo = plazo * 12
+    } else {
+        alert('No seleccionaste ningún tipo de plazo')
+    }
 
-        function divisionCuotas(total1, total2) {
-            let resultadoCuotas = total1 / total2;
-            return Math.round(resultadoCuotas);
-        }
-        //Capturar cuotas
-        let totalCuotas = divisionCuotas(totalSuma1, cuotas)
-
-        let resumen = [
-            `Gracias por la solicitus de su credito,
-    Estado: En Proceso..
-    Nro cuotas: ${cuotas} 
-    Valor cuotas mensuales: ${totalCuotas} 
-    Pago total: ${totalSuma1}`
-        ];
-        alert(resumen)
-    } else if (solicitar === "no") {
-        let cedulaCliente = parseInt(prompt("Si deseas consultar tu credito digita tu nro de cedula, "));
-        const encontrado = clientes.find(item => item.cedula === cedulaCliente);
-        if (encontrado) {
-            let mensaje = `
-                Cedula: ${encontrado.cedula}
-                Nombre: ${encontrado.nombre}
-                Credito: ${encontrado.credito}
-                Estado: ${encontrado.estado}
-                `;
-            alert(mensaje)
-            exit()
-        } else {
-            alert("No encontrado")
-        }
+    switch (periodo) {
+        case 'semanal':
+            let fechaFin = new Date(fechaInicio)
+            fechaFin.setMonth(fechaFin.getMonth() + parseInt(plazo))
+            let tiempo = fechaFin.getTime() - fechaInicio.getTime()
+            let dias = Math.floor(tiempo / (1000 * 60 * 60 * 24))
+            totalPagos = Math.ceil(dias / 7)
+            break
+        case 'quincenal':
+            totalPagos = plazo * 2
+            break
+        case 'mensual':
+            totalPagos = plazo
+            break
+        default:
+            alert('No seleccionaste ningún periodo de pagos')
+            break
     }
 }
-let buscarCliente = buscar()
+
+function calcularTasaMensual() {
+    tasaMensual = (tasaAnual / 100) / 12
+    return tasaMensual
+}
+
+function tasaMensualconIVA() {
+    return (calcularTasaMensual() + (calcularTasaMensual() * IVA))
+}
+
+function PagoMensual() {
+    let denominador = Math.pow((1 + tasaMensualconIVA()), totalPagos) - 1
+    mensualidad = (tasaMensualconIVA() + (tasaMensualconIVA() / denominador)) * monto
+    return mensualidad
+}
+
+function calcularTotalPrestamo() {
+    let totalPrestamo = 0
+    for (let i = 0; i < totalPagos; i++) {
+        totalPrestamo += mensualidad
+    }
+    return totalPrestamo
+}
+
+function obtenerPagoMensual() {
+    return Math.round(PagoMensual(), 2)
+}
+
+function obtenerTotalPrestamo() {
+    return Math.round(calcularTotalPrestamo(), 2)
+}
+
+function Intereses() {
+    if (primerInteres === 0) {
+        intereses = tasaMensual * monto
+        primerInteres = intereses
+    } else {
+        intereses = tasaMensual * insoluto
+    }
+    return intereses
+}
+
+function Impuestos() {
+    if (primerImpuesto === 0) {
+        impuestos = primerInteres * IVA
+        primerImpuesto = impuestos
+    } else {
+        impuestos = Intereses() * IVA
+    }
+    return impuestos
+}
+
+function Capital() {
+    if (primerCapital === 0) {
+        capital = mensualidad - primerInteres - primerImpuesto
+        primerCapital = capital
+    } else {
+        capital = mensualidad - Intereses() - Impuestos()
+    }
+    return capital
+}
+
+function SaldoInsoluto() {
+    if (primerInsoluto === 0) {
+        insoluto = monto - primerCapital
+        primerInsoluto = insoluto
+    } else {
+        insoluto -= Capital()
+    }
+    return insoluto
+}
+
+function simularPrestamo() {
+    establecerDatos()
+    PagoMensual()
+    calcularTotalPrestamo()
+
+    var columnas = ['No.', 'Fecha', 'Mensualidad', 'Intereses', 'Impuestos', 'Capital', 'Insoluto']
+
+    var amortizaciones = document.getElementById('amortizaciones')
+    var tabla = document.createElement('table')
+    var cabeceraTabla = document.createElement('thead')
+    var cuerpoTabla = document.createElement('tbody')
+    var pieTabla = document.createElement('tfoot')
+    var fila = document.createElement('tr')
+
+    // header de mi tabla
+    for (let j = 0; j < columnas.length; j++) {
+        let celda = document.createElement('td')
+        let texto = columnas[j]
+        let textoCelda = document.createTextNode(texto)
+        celda.appendChild(textoCelda)
+        fila.appendChild(celda)
+    }
+    cabeceraTabla.appendChild(fila)
+
+    // cuerpo de mi tabla
+    for (let i = 0; i < totalPagos; i++) {
+        let intereses = Intereses(), impuestos = Impuestos(), capital = Capital(), insoluto = SaldoInsoluto()
+        acumIntereses += intereses
+        acumImpuestos += impuestos
+        acumCapital += capital
+
+        var fila = document.createElement('tr')
+        for (let j = 0; j < columnas.length; j++) {
+            let celda = document.createElement('td')
+            let texto
+
+            switch (columnas[j]) {
+                case 'No.':
+                    texto = (i + 1)
+                    break
+                case 'Fecha':
+                    if (primerFechaPago === true) {
+                        fechaPago = new Date(fechaInicio)
+                        primerFechaPago = false
+                    } else {
+                        if (periodo === 'semanal') {
+                            fechaPago.setDate(fechaPago.getDate() + 7)
+                        } else if (periodo === 'quincenal') {
+                            fechaPago.setDate(fechaPago.getDate() + 15)
+                        } else if (periodo === 'mensual') {
+                            fechaPago.setMonth(fechaPago.getMonth() + 1)
+                        }
+                    }
+                    texto = fechaPago.toLocaleDateString()
+                    break
+                case 'Mensualidad':
+                    texto = dinero.format(mensualidad)
+                    break
+                case 'Intereses':
+                    texto = dinero.format(intereses)
+                    break
+                case 'Impuestos':
+                    texto = dinero.format(impuestos)
+                    break
+                case 'Capital':
+                    texto = dinero.format(capital)
+                    break
+                case 'Insoluto':
+                    texto = dinero.format(Math.abs(insoluto))
+                    break
+                default:
+                    texto = null
+                    break
+            }
+            var textoCelda = document.createTextNode(texto)
+            celda.appendChild(textoCelda)
+            fila.appendChild(celda)
+        }
+        cuerpoTabla.appendChild(fila)
+    }
+
+    // footer de la tabla
+    for (let j = 0; j < columnas.length; j++) {
+        let celda = document.createElement('td')
+        let texto
+        switch (columnas[j]) {
+            case 'No.':
+                texto = totalPagos
+                break
+            case 'Intereses':
+                texto = dinero.format(acumIntereses)
+                break
+            case 'Impuestos':
+                texto = dinero.format(acumImpuestos)
+                break
+            case 'Capital':
+                texto = dinero.format(acumCapital)
+                break
+            default:
+                texto = ''
+                break
+        }
+        let textoCelda = document.createTextNode(texto)
+        celda.appendChild(textoCelda)
+        pieTabla.appendChild(celda)
+    }
+
+    tabla.appendChild(cabeceraTabla)
+    tabla.appendChild(cuerpoTabla)
+    tabla.appendChild(pieTabla)
+    amortizaciones.appendChild(tabla)
+}
