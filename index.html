@@ -33,12 +33,44 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarText">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item dropdown amarillo">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="true" aria-haspopup="true">
+                                <i class="fas fa-shopping-cart imgCarrito"></i>
+                            </a>
+                            <ul class="dropdown-menu justify-content-center" aria-labelledby="navbarDropdown" id="carrito">
+                                <li>
+                                    <table class="table text-center px-3" id="lista-carrito">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Nombre</th>
+                                                <th scope="col">Precio</th>
+                                                <th scope="col">Cantidad</th>
+                                                <th scope="col">Fushh!</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!--Aca se agregan los items desde Js-->
+                                        </tbody>
+                                    </table>
+                                </li>
+    
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item text-center" href="#" id="vaciar-carrito"> Vaciar Carrito </a>
+                                </li>
+                                <li><a class="dropdown-item text-center" href="#" id="pagar" data-toggle="modal"
+                                        data-target="#exampleModal"> <i class="fab fa-cc-visa"></i> Pagar </a></li>
+                            </ul>
+                        </li>
                         <li class="nav-item"><a class="nav-link active" href="#">Inicio</a></li>
                         <li class="nav-item"><a class="nav-link" href="./pages/servicios.html">Servicios</a></li>
                         <li class="nav-item"><a class="nav-link" href="./pages/galeria.html">Galeria</a></li>
                         <li class="nav-item"><a class="nav-link" href="./pages/creditos.html">Créditos</a></li>
                         <li class="nav-item"><a class="nav-link" href="./pages/conocenos.html">Quiénes somos</a></li>
                         <li class="nav-item"><a class="nav-link" href="./pages/contacto.html">Contacto</a></li>
+                        
                     </ul>
                 </div>
             </div>

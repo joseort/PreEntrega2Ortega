@@ -34,6 +34,37 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarText">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item dropdown amarillo">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="true" aria-haspopup="true">
+                                <i class="fas fa-shopping-cart imgCarrito"></i>
+                            </a>
+                            <ul class="dropdown-menu justify-content-center" aria-labelledby="navbarDropdown" id="carrito">
+                                <li>
+                                    <table class="table text-center px-3" id="lista-carrito">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Nombre</th>
+                                                <th scope="col">Precio</th>
+                                                <th scope="col">Cantidad</th>
+                                                <th scope="col">Eliminar</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!--Aca se agregan los items desde Js-->
+                                        </tbody>
+                                    </table>
+                                </li>
+    
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item text-center" href="#" id="vaciar-carrito"> Vaciar Carrito </a>
+                                </li>
+                                <li><a class="dropdown-item text-center" href="#" id="pagar" data-toggle="modal"
+                                        data-target="#exampleModal"> <i class="fab fa-cc-visa"></i> Pagar </a></li>
+                            </ul>
+                        </li>
                         <li class="nav-item"><a class="nav-link" href="../index.html">Inicio</a></li>
                         <li class="nav-item"><a class="nav-link active" href="servicios.html">Servicios</a></li>
                         <li class="nav-item"><a class="nav-link" href="galeria.html">Galeria</a></li>
@@ -46,63 +77,90 @@
         </nav>
     </header>
 
-    <main class="servi">
-        <section class="services">
-            <div class="container">
-                <h2 class="section-title">
-                    Nuestros <br/> Servicios
-                </h2>
-                <div class="list-services">
-                    <div class="service-box">
-                        <i class="bi bi-tools fa-2x icon"></i>
-                        <p class="text">
-                            Contamos con una alta gama y varidad de Herramientas y accesorios a tu dispocicion Herramientas eléctricas, manuales y accesorios. La primera plataforma para ferreteros mayoristas. Todo en Herramientas.
-                            Contamos tambien con experton que te podran asesorar las 24 horas, cualquier emergencia que puedas presentar estaremos para ayudarte.
-                        </p>
-                        <h3 class="title">Herramientas</h3>
-                    </div>
-                    <div class="service-box">
-                        <i class="bi bi-house-heart-fill fa-2x icon"></i>
-                        <p class="text">
-                           Los diseños para tu hogar en interiores para que puedas elegir a tu gusto y sin complicaciones, desde tu baño hasta tu sala cubrimos todos los espacion que desees decorar estan no solo en tus sueños aqui tambien! y lo puedes hacer realidad, deja que nuestros diseñadores y expertos conozcan lo que deseas hacer y ellos te van a ayudar a que se cumpla.
-                        </p>
-                        <h3 class="title">Diseños</h3>
-                    </div>
-                    <div class="service-box">
-                        <i class="bi bi-border-all fa-2x icon"></i>
-                        <p class="text">
-                            En temas de pisos tenemos de todos los colores, tamaños y como siempre la mejor calidad para cualquier espacio de tu casa, te ofrecemos toda clase de materiales y de diferentes paises, tambien estamos dedicados al mantenimiento, colocación y embellecimiento de tus pisos: madera, mosaicos, mármoles, flotantes y más.. visita nuestra galeria.
-                        </p>
-                        <h3 class="title">Pisos</h3>
-                    </div>
-                </div>
-                <div class="list-services">
-                    <div class="service-box">
-                        <i class="bi bi-bricks fa-2x icon"></i>
-                        <p class="text">
-                            Paredes y Textura y laqueado para darle estilo a las paredes asi podras personalizar interiores y se aplica sobre todo tipo de superficies metálicas, madera, muebles,, dale vida a cada rincon de tu hogar Gran selección de materiales de arte: lienzo, pintura, pinceles y material para dibujar. Las mejores marcas, ahorros confiables y un servicio al cliente .
-                        </p>
-                        <h3 class="title">Paredes</h3>
-                    </div>
-                    <div class="service-box">
-                        <i class="bi bi-lamp-fill fa-2x icon"></i>
-                        <p class="text">
-                            Elige aquí más de 1.500 de referencias en Electricidad certificada para tus proyectos. Encuentra los productos y marcas que tu hogar necesita en Hometools, Productos de alta calidad para media y baja tensión. Encuentra todo lo que necesitas,alambres y cables eléctricos para tus instalaciones, interruptores y tomacorrientes para encender y conectar
-                        </p>
-                        <h3 class="title">Electricos</h3>
-                    </div>
-                    <div class="service-box">
-                        <i class="bi bi-paint-bucket fa-2x icon"></i>
-                        <p class="text">
-                            Gran selección de materiales de arte: lienzo, pintura, pinceles y material para dibujar. Las mejores marcas, ahorros confiables y un servicio al cliente. En la tienda de pinturas online de Todo Pintura, encontrarás no solo una gran variedad de pinturas, tipo de vinilo determinado de acuerdo a la calidad solicitada y superficies a pintar, muros, techos, etc.
-                        </p>
-                        <h3 class="title">Pinturas</h3>
-                    </div>
+    <div class="container my-5 py-5" id="lista-productos">
+        <div class="row justify-content-around">
+            <div class="card col-12 col-md-3 py-4" style="width: 16rem;">
+                <img src="../img/baño3.jpg" class="card-img-top" alt="Imagen Baño Europa">
+                <div class="card-body">
+                    <h4 class="card-title text-justify text-center blanco">Estilo Europeo</h4>
+                    <p class="card-text text-justify blanco">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente omnis corporis accusantium reprehenderit optio ut inventore ducimus fugiat, voluptatem fuga nihil, ratione, asperiores illo aliquam. Alias enim a omnis dolor.
+                    </p>
+                    <p class="precio blanco text-center fs-4"> COP <span>44.000</span></p>
+                    <a href="#" class="mx-4 btn agregar-carrito" data-toggle="tooltip"
+                        data-placement="top" title="Estilo Europeo" data-id="1">Agregar <i
+                            class="fas fa-shopping-basket"></i>
+                    </a>
                 </div>
             </div>
-        </section>
+            <div class="card col-12 col-md-3 py-4" style="width: 16rem;">
+                <img src="../img/baño2.jpg" class="card-img-top" alt="Imagen Baño Italia">
+                <div class="card-body">
+                    <h4 class="card-title text-justify text-center blanco">Estilo Italiano</h4>
+                    <p class="card-text text-justify blanco">
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Reprehenderit adipisci quidem dolore sint in earum corrupti eius praesentium pariatur odio ipsam ullam vero provident, asperiores veniam, exercitationem molestiae nam veritatis.</p>
+                    <p class="precio blanco text-center fs-4"> COP <span>45.000</span></p>
+                    <a href="#" class="mx-4 btn agregar-carrito" data-toggle="tooltip"
+                        data-placement="top" title="Estilo Italiano" data-id="2">Agregar <i
+                            class="fas fa-shopping-basket"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="card col-12 col-md-3 py-4" style="width: 16rem;">
+                <img src="../img/baños1.jpg" class="card-img-top" alt="Imagen estilo asiatico">
+                <div class="card-body">
+                    <h4 class="card-title text-justify text-center blanco">Estilo Asiatico</h4>
+                    <p class="card-text text-justify blanco">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere placeat praesentium fugit cum, facilis, laboriosam odit quasi vel perspiciatis aperiam corrupti. Ducimus sapiente nemo reiciendis.</p>
+                    <p class="precio blanco text-center fs-4"> COP <span>64.000</span></p>
+                    <a href="#" class="mx-4 btn agregar-carrito" data-toggle="tooltip"
+                        data-placement="top" title="Estilo Asiatico" data-id="3">Agregar <i
+                            class="fas fa-shopping-basket"></i></a>
 
-    </main>
+                </div>
+            </div>
+            <div class="card col-12 col-md-3 py-4" style="width: 16rem;">
+                <img src="../img/cocina1.jpg" class="card-img-top" alt="Imagen cocina clasica">
+                <div class="card-body">
+                    <h4 class="card-title text-justify text-center blanco">Estilo Clasico Moderno</h4>
+                    <p class="card-text text-justify blanco">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis, praesentium! Doloremque excepturi eveniet ratione distinctio fugit tempore iure? Natus quasi cumque quidem, necessitatibus aliquid exercitationem .</p>
+                    <p class="precio blanco text-center fs-4"> COP <span>75.000</span></p>
+                    <a href="#" class="mx-4 btn agregar-carrito" data-toggle="tooltip"
+                        data-placement="top" title="Clasico Moderno" data-id="4">Agregar <i
+                            class="fas fa-shopping-basket"></i></a>
+
+                </div>
+            </div>
+            <div class="card col-12 col-md-3 py-4" style="width: 16rem;">
+                <img src="../img/cocina2.jpg" class="card-img-top" alt="Imagen cocina estilo familiar">
+                <div class="card-body">
+                    <h4 class="card-title text-justify text-center blanco">Cocina Estilo Familiar</h4>
+                    <p class="card-text text-justify blanco">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam architecto corporis perspiciatis odit quia ratione nostrum consectetur ex in ea, facere cum, quibusdam nisi totam adipisci tempora praesentium iure tenetur.
+                    </p>
+                    <p class="precio blanco text-center fs-4"> COP <span>80.000</span></p>
+                    <a href="#" class="mx-4 btn agregar-carrito" data-toggle="tooltip"
+                        data-placement="top" title="Estilo Familiar" data-id="5">Agregar <i
+                            class="fas fa-shopping-basket"></i></a>
+
+                </div>
+            </div>
+            <div class="card col-12 col-md-3 py-4" style="width: 16rem;">
+                <img src="../img/cocina3.jpg" class="card-img-top" alt="cocina estilo antiguo">
+                <div class="card-body">
+                    <h4 class="card-title text-justify text-center blanco">Cocina Estilo Clasico Antiguo</h4>
+                    <p class="card-text text-justify blanco ">
+                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Esse repellat iusto beatae aperiam odit nisi dolorum ad soluta numquam? Ratione aut doloremque magni eveniet. Ipsam eligendi magni officia voluptas earum.</p>
+                    <p class="precio blanco text-center fs-4"> COP <span>66.000</span></p>
+                    <a href="#" class="mx-4 btn agregar-carrito" data-toggle="tooltip"
+                        data-placement="top" title="Clasico Antiguo" data-id="6">Agregar <i
+                            class="fas fa-shopping-basket"></i></a>
+
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!---Footer--->
     <footer class="text-white text-center text-lg-start bg-dark">
@@ -182,9 +240,10 @@
         </div>
         <!-- Copyright -->
     </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-        crossorigin="anonymous"></script>
+    <!--  Jquery  -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+        <script src="../js/carshop.js"></script>
 </body>
 
 </html>

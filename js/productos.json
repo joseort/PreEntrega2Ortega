@@ -1,0 +1,44 @@
+[
+    {
+        "imagen":"../img/baño3.jpg",
+        "nombre":"Estilo Europeo",
+        "description":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente omnis corporis accusantium reprehenderit optio ut inventore ducimus fugiat, voluptatem fuga nihil, ratione, asperiores illo aliquam. Alias enim a omnis dolor.",
+        "precio":"44000",
+        "id":"1"
+    },
+    {
+        "imagen":"../img/baño2.jpg",
+        "nombre":"Estilo Italiano",
+        "description":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente omnis corporis accusantium reprehenderit optio ut inventore ducimus fugiat, voluptatem fuga nihil, ratione, asperiores illo aliquam. Alias enim a omnis dolor.",
+        "precio":"45000",
+        "id":"2"
+    },
+    {
+        "imagen":"../img/baño1.jpg",
+        "nombre":"Estilo Asiatico",
+        "description":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente omnis corporis accusantium reprehenderit optio ut inventore ducimus fugiat, voluptatem fuga nihil, ratione, asperiores illo aliquam. Alias enim a omnis dolor.",
+        "precio":"64000",
+        "id":"3"
+    },
+    {
+        "imagen":"../img/cocina1.jpg",
+        "nombre":"Clasico Moderno",
+        "description":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente omnis corporis accusantium reprehenderit optio ut inventore ducimus fugiat, voluptatem fuga nihil, ratione, asperiores illo aliquam. Alias enim a omnis dolor.",
+        "precio":"75000",
+        "id":"4"
+    },
+    {
+        "imagen":"../img/cocina2.jpg",
+        "nombre":"Estilo Familiar",
+        "description":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente omnis corporis accusantium reprehenderit optio ut inventore ducimus fugiat, voluptatem fuga nihil, ratione, asperiores illo aliquam. Alias enim a omnis dolor.",
+        "precio":"80000",
+        "id":"5"
+    },
+    {
+        "imagen":"../img/cocina3.jpg",
+        "nombre":"Clasico Antiguo",
+        "description":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente omnis corporis accusantium reprehenderit optio ut inventore ducimus fugiat, voluptatem fuga nihil, ratione, asperiores illo aliquam. Alias enim a omnis dolor.",
+        "precio":"66000",
+        "id":"6"
+    }
+]
