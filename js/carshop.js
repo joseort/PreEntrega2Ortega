@@ -1,15 +1,25 @@
+///////////////////////////////////////////////////////////////////////////////////
+/* --------------------------  Selectors   --------------------------------------*/
+//////////////////////////////////////////////////////////////////////////////////
 const carrito = document.querySelector("#carrito");
 const contenedorCarrito = document.querySelector("#lista-carrito tbody");
 const listaProductos = document.querySelector("#lista-productos");
 const vaciarCarrito = document.querySelector("#vaciar-carrito");
 
 let articulosCarrito = [];
+
 let dataProductos;
 
+////////////////////////////////////////////////////////////////////////////////////
+/* ---------------------------- Listeners ----------------------------------------*/
+////////////////////////////////////////////////////////////////////////////////////
 document.addEventListener("DOMContentLoaded", () => {
 	articulosCarrito = JSON.parse(localStorage.getItem("carrito")) || [];
 	insertarCarritoHTML();
+
+/*--------------   Llamada a BD local con Fetch - Async Function   ---------------*/
 	cargarBd();
+
 });
 
 listaProductos.addEventListener("click", agregarProducto);
@@ -20,6 +30,9 @@ $("#vaciar-carrito").click(vaciarCarrito, borrarCarrito);
 
 $("#formulario").on("submit", filtrarProductos);
 
+$("#pagar").click("pagar", pagoTarjeta);
+
+
 async function consultarBd() {
 	const resultado = await fetch("/js/productos.json");
 	let datos = await resultado.json();
@@ -28,6 +41,17 @@ async function consultarBd() {
 
 function cargarBd() {
 	consultarBd();
+}
+
+function animacionFade() {
+	$(".nosotroStory").hide(6000, animacionFade2);
+	function animacionFade2() {
+		$(".nosotroStory").slideDown(6000);
+	}
+}
+
+function pagoTarjeta() {
+	console.log("se realizara el pago con tarjeta Visa");
 }
 
 function cargarListaProductos(productos) {
@@ -65,6 +89,8 @@ function cargarListaProductos(productos) {
 function filtrarProductos(e) {
 	e.preventDefault();
 
+	const busqueda = $("#buscador").val();
+
 	const resultado = dataProductos.filter((producto) =>
 		producto.nombre.toLocaleLowerCase().includes(busqueda.toLocaleLowerCase())
 	);
@@ -90,10 +116,20 @@ function borrarCarrito() {
 
 function quitarProducto(e) {
 	e.preventDefault();
+
+	if (e.target.classList.contains(`borrar-producto`)) {
+		Swal.fire({
+			position: "top-center",
+			icon: "error",
+			title: "El producto fue quitado",
+			showConfirmButton: false,
+			timer: 1700,
+		});
 		const productoId = e.target.getAttribute("data-id");
 		articulosCarrito = articulosCarrito.filter((producto) => producto.id != productoId);
 		insertarCarritoHTML();
 		guardarStorage();
+	}
 }
 
 function obtenerDatos(producto) {
@@ -104,8 +140,16 @@ function obtenerDatos(producto) {
 		cantidad: 1,
 	};
 	function comprobar() {
+		Swal.fire({
+			position: "top-center",
+			icon: "success",
+			title: "El producto fue agregado al carrito",
+			showConfirmButton: false,
+			timer: 1500,
+		});
 		const existe = articulosCarrito.some((producto) => producto.id == productoAgregado.id);
 		if (existe) {
+			/* Producto ya existente */
 			const productos = articulosCarrito.map((producto) => {
 				if (producto.id === productoAgregado.id) {
 					producto.cantidad++;
@@ -116,6 +160,7 @@ function obtenerDatos(producto) {
 			});
 			articulosCarrito = [...productos];
 		} else {
+			/* Agrego el producto al carrito */
 			articulosCarrito.push(productoAgregado);
 		}
 	}
@@ -129,7 +174,10 @@ function guardarStorage() {
 }
 
 function insertarCarritoHTML() {
+	/* Borra el contenido del carrito */
 	limpiarCarrito();
+
+	/* Inserta los productos del carrito en el HTML */
 	articulosCarrito.forEach((producto) => {
 		
 		const { nombre, precio, cantidad, id } = producto;
