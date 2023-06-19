@@ -25,6 +25,22 @@ header img {
   width: 70px;
 }
 
+#lista-productos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#carrito2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#cargando {
+  display: none;
+}
+
 /* TODO Secciones Main*/
 /* Banner */
 #banner {

@@ -1,215 +1,239 @@
-///////////////////////////////////////////////////////////////////////////////////
-/* --------------------------  Selectors   --------------------------------------*/
-//////////////////////////////////////////////////////////////////////////////////
-const carrito = document.querySelector("#carrito");
-const contenedorCarrito = document.querySelector("#lista-carrito tbody");
-const listaProductos = document.querySelector("#lista-productos");
-const vaciarCarrito = document.querySelector("#vaciar-carrito");
+class Carrito {
 
-let articulosCarrito = [];
+    //Añadir producto al carrito
+    comprarProducto(e){
+        e.preventDefault();
+        //Delegado para agregar al carrito
+        if(e.target.classList.contains('agregar-carrito')){
+            const producto = e.target.parentElement.parentElement;
+            //Enviamos el producto seleccionado para tomar sus datos
+            this.leerDatosProducto(producto);
+        }
+    }
 
-let dataProductos;
+    //Leer datos del producto
+    leerDatosProducto(producto){
+        const infoProducto = {
+            imagen : producto.querySelector('img').src,
+            titulo: producto.querySelector('h4').textContent,
+            precio: producto.querySelector('.precio span').textContent,
+            id: producto.querySelector('a').getAttribute('data-id'),
+            cantidad: 1
+        }
+        let productosLS;
+        productosLS = this.obtenerProductosLocalStorage();
+        productosLS.forEach(function (productoLS){
+            if(productoLS.id === infoProducto.id){
+                productosLS = productoLS.id;
+            }
+        });
 
-////////////////////////////////////////////////////////////////////////////////////
-/* ---------------------------- Listeners ----------------------------------------*/
-////////////////////////////////////////////////////////////////////////////////////
-document.addEventListener("DOMContentLoaded", () => {
-	articulosCarrito = JSON.parse(localStorage.getItem("carrito")) || [];
-	insertarCarritoHTML();
+        if(productosLS === infoProducto.id){
+            Swal.fire({
+                type: 'info',
+                title: 'Oops...',
+                text: 'El producto ya está agregado',
+                showConfirmButton: false,
+                timer: 1000
+            })
+        }
+        else {
+            this.insertarCarrito(infoProducto);
+        }
+        
+    }
 
-/*--------------   Llamada a BD local con Fetch - Async Function   ---------------*/
-	cargarBd();
+    //muestra producto seleccionado en carrito
+    insertarCarrito(producto){
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>
+                <img src="${producto.imagen}" width=100>
+            </td>
+            <td>${producto.titulo}</td>
+            <td>${producto.precio}</td>
+            <td>
+                <a href="#" class="borrar-producto fas fa-times-circle" data-id="${producto.id}"></a>
+            </td>
+        `;
+        listaProductos.appendChild(row);
+        this.guardarProductosLocalStorage(producto);
 
-});
+    }
 
-listaProductos.addEventListener("click", agregarProducto);
+    //Eliminar el producto del carrito en el DOM
+    eliminarProducto(e){
+        e.preventDefault();
+        let producto, productoID;
+        if(e.target.classList.contains('borrar-producto')){
+            e.target.parentElement.parentElement.remove();
+            producto = e.target.parentElement.parentElement;
+            productoID = producto.querySelector('a').getAttribute('data-id');
+        }
+        this.eliminarProductoLocalStorage(productoID);
+        this.calcularTotal();
 
-$("#carrito").click(carrito, quitarProducto);
+    }
 
-$("#vaciar-carrito").click(vaciarCarrito, borrarCarrito);
+    //Elimina todos los productos
+    vaciarCarrito(e){
+        e.preventDefault();
+        while(listaProductos.firstChild){
+            listaProductos.removeChild(listaProductos.firstChild);
+        }
+        this.vaciarLocalStorage();
 
-$("#formulario").on("submit", filtrarProductos);
+        return false;
+    }
 
-$("#pagar").click("pagar", pagoTarjeta);
+    //Almacenar en el LS
+    guardarProductosLocalStorage(producto){
+        let productos;
+        //Toma valor de un arreglo con datos del LS
+        productos = this.obtenerProductosLocalStorage();
+        //Agregar el producto al carrito
+        productos.push(producto);
+        //Agregamos al LS
+        localStorage.setItem('productos', JSON.stringify(productos));
+    }
 
+    //Comprobar que hay elementos en el LS
+    obtenerProductosLocalStorage(){
+        let productoLS;
 
-async function consultarBd() {
-	const resultado = await fetch("/js/productos.json");
-	let datos = await resultado.json();
-	dataProductos = datos;
-}
+        //Comprobar si hay algo en LS
+        if(localStorage.getItem('productos') === null){
+            productoLS = [];
+        }
+        else {
+            productoLS = JSON.parse(localStorage.getItem('productos'));
+        }
+        return productoLS;
+    }
 
-function cargarBd() {
-	consultarBd();
-}
+    //Mostrar los productos guardados en el LS
+    leerLocalStorage(){
+        let productosLS;
+        productosLS = this.obtenerProductosLocalStorage();
+        productosLS.forEach(function (producto){
+            //Construir plantilla
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>
+                    <img src="${producto.imagen}" width=100>
+                </td>
+                <td>${producto.titulo}</td>
+                <td>${producto.precio}</td>
+                <td>
+                    <a href="#" class="borrar-producto fas fa-times-circle" data-id="${producto.id}"></a>
+                </td>
+            `;
+            listaProductos.appendChild(row);
+        });
+    }
 
-function animacionFade() {
-	$(".nosotroStory").hide(6000, animacionFade2);
-	function animacionFade2() {
-		$(".nosotroStory").slideDown(6000);
-	}
-}
+    //Mostrar los productos guardados en el LS en compra.html
+    leerLocalStorageCompra(){
+        let productosLS;
+        productosLS = this.obtenerProductosLocalStorage();
+        productosLS.forEach(function (producto){
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>
+                    <img src="${producto.imagen}" width=100>
+                </td>
+                <td>${producto.titulo}</td>
+                <td>${producto.precio}</td>
+                <td>
+                    <input type="number" class="form-control cantidad" min="1" value=${producto.cantidad}>
+                </td>
+                <td id='subtotales'>${producto.precio * producto.cantidad}</td>
+                <td>
+                    <a href="#" class="borrar-producto fas fa-times-circle" style="font-size:30px" data-id="${producto.id}"></a>
+                </td>
+            `;
+            listaCompra.appendChild(row);
+        });
+    }
 
-function pagoTarjeta() {
-	console.log("se realizara el pago con tarjeta Visa");
-}
+    //Eliminar producto por ID del LS
+    eliminarProductoLocalStorage(productoID){
+        let productosLS;
+        //Obtenemos el arreglo de productos
+        productosLS = this.obtenerProductosLocalStorage();
+        //Comparar el id del producto borrado con LS
+        productosLS.forEach(function(productoLS, index){
+            if(productoLS.id === productoID){
+                productosLS.splice(index, 1);
+            }
+        });
 
-function cargarListaProductos(productos) {
-	productos.forEach((producto, index) => {
-		const { nombre, imagen, precio, id, tipo, description } = producto;
+        //Añadimos el arreglo actual al LS
+        localStorage.setItem('productos', JSON.stringify(productosLS));
+    }
 
-		const divCard = document.createElement("div");
-		divCard.classList.add("col-12", "col-md-3", "py-4");
-		divCard.innerHTML = `
-			<div class="card col-12 col-md-3 py-4" style="width: 16rem;">
-                <img src="${imagen}" class="card-img-top" alt="Birra image">
-                <div class="card-body">
-                <h4 class="card-title text-justify text-center blanco">${nombre}</h4>
-                <h6 class="card-subtitle mb-2 text-muted text-center">${tipo}</h6>
-                <p class="card-text text-justify blanco">
-                ${description}</p>
-                <p class="precio blanco"> $ <span>${precio}</span></p>
-                <a href="#" class="btn btn-outline-light agregar-carrito" data-id="${id}">Agregar  <i class="fas fa-shopping-basket"></i></a>
-                </div>
-            </div>
-		`;
-		if (index % 4 === 0) {
-			const row = document.createElement("div");
-			row.classList.add("row");
+    //Eliminar todos los datos del LS
+    vaciarLocalStorage(){
+        localStorage.clear();
+    }
 
-			listaProductos.appendChild(row);
-			row.appendChild(divCard);
-		} else {
-			const row = document.querySelector("#lista-productos .row:last-child");
-			row.appendChild(divCard);
-		}
-	});
-}
+    //Procesar pedido
+    procesarPedido(e){
+        e.preventDefault();
 
-function filtrarProductos(e) {
-	e.preventDefault();
+        if(this.obtenerProductosLocalStorage().length === 0){
+            Swal.fire({
+                type: 'error',
+                title: 'Oops...',
+                text: 'El carrito está vacío, agrega algún producto',
+                showConfirmButton: false,
+                timer: 2000
+            })
+        }
+        else {
+            location.href = "compra.html";
+        }
+    }
 
-	const busqueda = $("#buscador").val();
+    //Calcular montos
+    calcularTotal(){
+        let productosLS;
+        let total = 0, igv = 0, subtotal = 0;
+        productosLS = this.obtenerProductosLocalStorage();
+        for(let i = 0; i < productosLS.length; i++){
+            let element = Number(productosLS[i].precio * productosLS[i].cantidad);
+            total = total + element;
+            
+        }
+        
+        igv = parseFloat(total * 0.18).toFixed(2);
+        subtotal = parseFloat(total-igv).toFixed(2);
 
-	const resultado = dataProductos.filter((producto) =>
-		producto.nombre.toLocaleLowerCase().includes(busqueda.toLocaleLowerCase())
-	);
+        document.getElementById('subtotal').innerHTML = "S/. " + subtotal;
+        document.getElementById('igv').innerHTML = "S/. " + igv;
+        document.getElementById('total').value = "S/. " + total.toFixed(2);
+    }
 
-	limpiarProductos();
-	cargarListaProductos(resultado);
-}
-
-function agregarProducto(e) {
-	e.preventDefault();
-
-	if (e.target.classList.contains("agregar-carrito")) {
-		const productoSeleccionado = e.target.parentElement.parentElement;
-		obtenerDatos(productoSeleccionado);
-	}
-}
-
-function borrarCarrito() {
-	limpiarCarrito();
-	articulosCarrito = [];
-	guardarStorage();
-}
-
-function quitarProducto(e) {
-	e.preventDefault();
-
-	if (e.target.classList.contains(`borrar-producto`)) {
-		Swal.fire({
-			position: "top-center",
-			icon: "error",
-			title: "El producto fue quitado",
-			showConfirmButton: false,
-			timer: 1700,
-		});
-		const productoId = e.target.getAttribute("data-id");
-		articulosCarrito = articulosCarrito.filter((producto) => producto.id != productoId);
-		insertarCarritoHTML();
-		guardarStorage();
-	}
-}
-
-function obtenerDatos(producto) {
-	const productoAgregado = {
-		nombre: producto.querySelector("h4").textContent,
-		precio: producto.querySelector(".precio span").textContent,
-		id: producto.querySelector("a").getAttribute("data-id"),
-		cantidad: 1,
-	};
-	function comprobar() {
-		Swal.fire({
-			position: "top-center",
-			icon: "success",
-			title: "El producto fue agregado al carrito",
-			showConfirmButton: false,
-			timer: 1500,
-		});
-		const existe = articulosCarrito.some((producto) => producto.id == productoAgregado.id);
-		if (existe) {
-			/* Producto ya existente */
-			const productos = articulosCarrito.map((producto) => {
-				if (producto.id === productoAgregado.id) {
-					producto.cantidad++;
-					return producto;
-				} else{
-					return producto;
-				}
-			});
-			articulosCarrito = [...productos];
-		} else {
-			/* Agrego el producto al carrito */
-			articulosCarrito.push(productoAgregado);
-		}
-	}
-	comprobar();
-	insertarCarritoHTML();
-	guardarStorage();
-}
-
-function guardarStorage() {
-	localStorage.setItem("carrito", JSON.stringify(articulosCarrito));
-}
-
-function insertarCarritoHTML() {
-	/* Borra el contenido del carrito */
-	limpiarCarrito();
-
-	/* Inserta los productos del carrito en el HTML */
-	articulosCarrito.forEach((producto) => {
-		
-		const { nombre, precio, cantidad, id } = producto;
-
-		const row = document.createElement("tr");
-		row.innerHTML = `
-			<td>
-				${nombre}
-			</td>
-			<td>
-				${precio}
-			</td>
-			<td>
-				${cantidad}
-			</td>
-			<td>
-				<a href="#" class="" > <i class="far fa-trash-alt borrar-producto rojo" data-id="${id}"></i> </a>
-			</td>
-		`;
-
-		contenedorCarrito.appendChild(row);
-	});
-}
-
-function limpiarCarrito() {
-	while (contenedorCarrito.firstChild) {
-		contenedorCarrito.removeChild(contenedorCarrito.firstChild);
-	}
-}
-
-function limpiarProductos() {
-	while (listaProductos.firstChild) {
-		listaProductos.removeChild(listaProductos.firstChild);
-	}
+    obtenerEvento(e) {
+        e.preventDefault();
+        let id, cantidad, producto, productosLS;
+        if (e.target.classList.contains('cantidad')) {
+            producto = e.target.parentElement.parentElement;
+            id = producto.querySelector('a').getAttribute('data-id');
+            cantidad = producto.querySelector('input').value;
+            let actualizarMontos = document.querySelectorAll('#subtotales');
+            productosLS = this.obtenerProductosLocalStorage();
+            productosLS.forEach(function (productoLS, index) {
+                if (productoLS.id === id) {
+                    productoLS.cantidad = cantidad;                    
+                    actualizarMontos[index].innerHTML = Number(cantidad * productosLS[index].precio);
+                }    
+            });
+            localStorage.setItem('productos', JSON.stringify(productosLS));
+            
+        }
+        else {
+            console.log("click afuera");
+        }
+    }
 }

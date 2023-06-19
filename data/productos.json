@@ -1,0 +1,65 @@
+[
+	{
+		"id": 1,
+		"marca": "Baño Italiano",
+		"imagen": "../img/baño2.jpg",
+		"precio": "5000",
+		"detalles": ["Blanco Perla", "Marmol Dx", "Jacuzzi"]
+	},
+	{
+		"id": 2,
+		"marca": "Vista Campestre",
+		"imagen": "../img/exterior2.jpg",
+		"precio": "3000",
+		"detalles": ["Azul tercio", "Puerta/Ventana", "Luminems"]
+	},
+	{
+		"id": 3,
+		"marca": "Mueble Grande",
+		"imagen": "../img/muebles1.jpg",
+		"precio": "4000",
+		"detalles": ["Caoba", "Habitacion", "Mesa y espejo"]
+	},
+	{
+		"id": 4,
+		"marca": "Vista panoramica",
+		"imagen": "../img/exterior1.jpg",
+		"precio": "5900",
+		"detalles": ["Vidrio doble", "Puerta/Ventana", "Corrediso"]
+	},
+	{
+		"id": 5,
+		"marca": "Lampada direccional",
+		"imagen": "../img/electrico1.jpg",
+		"precio": "5769",
+		"detalles": ["Plateado", "Sala", "Interior"]
+	},
+	{
+		"id": 6,
+		"marca": "Iluminacion",
+		"imagen": "../img/electrico2.jpg",
+		"precio": "2599",
+		"detalles": ["Sala de eventos", "Bibliotecas", "Interior"]
+	},
+	{
+		"id": 7,
+		"marca": "Mueble doble Fass",
+		"imagen": "../img/muebles3.jpg",
+		"precio": "4299",
+		"detalles": ["Blanco", "Tipo L Expan", "Ajustable"]
+	},
+	{
+		"id": 8,
+		"marca": "Luz tenue",
+		"imagen": "../img/electrico3.jpg",
+		"precio": "869",
+		"detalles": ["Dorado", "Recargable", "Unidades"]
+	},
+	{
+		"id": 9,
+		"marca": "Mueble",
+		"imagen": "../img/muebles1.jpg",
+		"precio": "5397",
+		"detalles": ["Caoba", "Habitacion", "Mesa y espejo"]
+	}
+]
